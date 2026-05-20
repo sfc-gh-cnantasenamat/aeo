@@ -3,6 +3,8 @@
 
 ## Measuring How Well AI Answers Developer Questions
 
+&nbsp;
+
 *Chanin Nantasenamat, Daniel Myers, Umesh Unnikrishnan*
 *Developer Relations, Snowflake*
 
@@ -16,10 +18,10 @@ Developers no longer Google first. They ask AI assistants. Three paradigms have 
 - **AI Engine Optimization (AEO)** — *our approach*: measuring whether AI gives the **right answer**, not just whether it mentions you
 
 ```
-Traditional SEO    → Rank on page 1 of Google
-Answer Engine Opt  → Get cited in AI chatbot answers
-Generative Engine  → Get recommended in AI-synthesized content
-AI Engine Opt      → Ensure AI gives CORRECT answers about your product
+Traditional SEO                  → Rank on page 1 of Google
+Answer Engine Optimization       → Get cited in AI chatbot answers
+Generative Engine Optimization   → Get recommended in AI-synthesized content
+AI Engine Optimization           → Ensure AI gives CORRECT answers about your product
 ```
 
 ---
@@ -32,9 +34,6 @@ AI Engine Opt      → Ensure AI gives CORRECT answers about your product
 | Who benefits | Marketing teams | Engineering and product teams |
 | What it measures | Presence in responses | Quality of responses |
 | Actionable output | Content structure changes | Documentation gap analysis |
-| Example pioneer | Vercel (Feb 2026) | Snowflake DevRel (2026) |
-
-Vercel built AEO to track whether coding agents recommend Next.js. We built AEO to measure whether coding agents give developers **correct Snowflake answers**.
 
 ---
 # WHO: The Team and Stakeholders

@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>AI Engine Optimization (AEO)</title>
+<title>%%TITLE%%</title>
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 @import url('https://fonts.googleapis.com/css2?family=Silkscreen:wght@400;700&family=JetBrains+Mono:wght@400;700&display=swap');
@@ -200,80 +200,7 @@ html,body{width:100%;height:100%;overflow:hidden;background:var(--bg);color:var(
 </div>
 
 <script>
-// ============================================================
-// SLIDES DATA
-// ============================================================
-const SLIDES_DATA = {
-    "title": "AI Engine Optimization (AEO)",
-    "slides": [
-        {
-            "id": "slide-0",
-            "content": "# AI Engine Optimization (AEO)\n\n## Measuring How Well AI Answers Developer Questions\n\n&nbsp;\n\n*Chanin Nantasenamat, Daniel Myers, Umesh Unnikrishnan*\n*Developer Relations, Snowflake*",
-            "path": "main",
-            "type": "normal"
-        },
-        {
-            "id": "slide-1",
-            "content": "# The Landscape: SEO in the Age of AI\n\nDevelopers no longer Google first. They ask AI assistants. Three paradigms have emerged:\n\n- **Answer Engine Optimization (AEO)** — optimizing content so AI chatbots surface your brand in conversational answers (featured snippets, voice search, zero-click results)\n- **Generative Engine Optimization (GEO)** — structuring content so generative AI systems cite and recommend your product when synthesizing responses\n- **AI Engine Optimization (AEO)** — *our approach*: measuring whether AI gives the **right answer**, not just whether it mentions you\n\n```\nTraditional SEO                  → Rank on page 1 of Google\nAnswer Engine Optimization       → Get cited in AI chatbot answers\nGenerative Engine Optimization   → Get recommended in AI-synthesized content\nAI Engine Optimization           → Ensure AI gives CORRECT answers about your product\n```",
-            "path": "main",
-            "type": "normal"
-        },
-        {
-            "id": "slide-2",
-            "content": "# AEO vs GEO: Different Questions Entirely\n\n| Dimension | Answer/Generative Engine Opt | Our AEO (Snowflake) |\n|-----------|------------------------------|---------------------|\n| Core question | \"Does AI mention us?\" | \"Does AI get it right?\" |\n| Metric | Brand visibility, citation count | Correctness, completeness, recency |\n| Who benefits | Marketing teams | Engineering and product teams |\n| What it measures | Presence in responses | Quality of responses |\n| Actionable output | Content structure changes | Documentation gap analysis |",
-            "path": "main",
-            "type": "normal"
-        },
-        {
-            "id": "slide-3",
-            "content": "# WHO: The Team and Stakeholders\n\n**Built by:** Snowflake Developer Relations\n\n**Serves two audiences:**\n\n- **Platform engineering teams** who configure AI developer tools: which levers improve answer quality, and by how much?\n- **Product managers** who own documentation: where are the coverage gaps that cause AI to fail on their product area?\n\n**Judge panel:** 5 LLM judges score every response independently (claude-opus-4-6, claude-opus-4-7, openai-gpt-5.4, llama4-maverick, gemini-3.1-pro)\n\n**Respondent models tested:** claude-opus-4-6, claude-opus-4-7, openai-gpt-5.4",
-            "path": "main",
-            "type": "normal"
-        },
-        {
-            "id": "slide-4",
-            "content": "# WHAT: The Benchmark System\n\n**128 questions** across **32 Snowflake product categories** (4 per category)\n\n**4 question types** testing different developer needs:\n- **Explain** — conceptual understanding\n- **Implement** — correct code and procedures\n- **Debug** — diagnostic reasoning under failure\n- **Compare** — tradeoff analysis between options\n\n**5 scoring dimensions** (0-10 scale each):\n- Correctness, Completeness, Recency, Citation, Recommendation\n\n**Must-have checks:** Up to 5 binary pass/fail facts per question (640 total checks)\n\n```\nTotal evaluation surface:\n128 questions x 16 configurations x 3 models = 48 runs\n48 runs x 5 judges = 240 scoring passes\n240 passes x 128 questions = 30,720 individual scores\n```",
-            "path": "main",
-            "type": "normal"
-        },
-        {
-            "id": "slide-5",
-            "content": "# WHY: The Problem We Solve\n\nWhen a developer asks an AI assistant a Snowflake question, the quality depends on more than training data.\n\n**What actually makes AI give better answers?**\n\n- More instructions? (domain prompts)\n- Access to tools? (web search, doc retrieval)\n- Self-review loops? (generate then revise)\n- All of the above?\n\n**Nobody had tested this systematically.** Teams were guessing which configuration to deploy. We built a controlled experiment to replace intuition with data.\n\nThe **2 to the 4th factorial design** tests all 16 combinations of 4 binary factors, making interaction effects directly observable.",
-            "path": "main",
-            "type": "normal"
-        },
-        {
-            "id": "slide-6",
-            "content": "# HOW: The Factorial Experiment\n\n**4 factors, each ON or OFF, all 16 combinations tested:**\n\n| Factor | OFF | ON |\n|--------|-----|-----|\n| Domain Prompt | No system message | 1,800-token Snowflake primer |\n| Citation | Raw question only | \"Cite official docs\" appended |\n| Agentic Tools | Single API call, no tools | Full Cortex Code session |\n| Self-Critique | Single-turn generation | Two-turn generate-then-revise |\n\n**Non-agentic:** CORTEX.COMPLETE with 8,192-token cap\n**Agentic:** Native Cortex Code with web search, bash, SQL, file I/O\n\n**Scoring pipeline:** Custom 5-judge panel (not TruLens native) with canonical answer grounding and must-have binary checks",
-            "path": "main",
-            "type": "normal"
-        },
-        {
-            "id": "slide-7",
-            "content": "# WHEN and WHERE: Timeline and Infrastructure\n\n**Timeline:**\n- Feb 2026 — Vercel publishes AEO concept for brand tracking\n- Mar 2026 — Snowflake DevRel pivots concept to answer quality\n- Apr 2026 — v1 benchmark (50 questions, 13 categories)\n- Apr 2026 — v2 expanded (128 questions, 32 categories, 3 models)\n- Apr 2026 — v3 factorial (48 runs, 5-judge panel, full replication)\n- May 2026 — v4 scale-up (42 categories, 840 questions via Docs CKE generation, SPCS runner)\n\n**Infrastructure:**\n- Response generation: Cortex Code CLI sessions (agentic) and CORTEX.COMPLETE API (non-agentic)\n- Scoring: Custom pipeline with 5 independent LLM judges\n- Observability: Per-question tool usage, token attribution, generation time\n- Results: Streamlit app deployed on Snowflake (DevRel + Snowhouse)\n- Automation: SPCS-based runner for scheduled benchmark execution",
-            "path": "main",
-            "type": "normal"
-        },
-        {
-            "id": "slide-8",
-            "content": "# Key Results\n\n**Best configuration: Citation + Agentic (no domain prompt)**\n\n| Config | Score | Must-Have |\n|--------|------:|----------:|\n| Baseline (all OFF) | 53.6% | 58.9% |\n| Citation + Agentic | 69.2% | 72.4% |\n| **Improvement** | **+15.6pp** | **+13.5pp** |\n\n**Factor impact rankings:**\n\n```\nAgentic Tools    +8.5pp  ████████████████████████████████████████\nCitation Instr   +1.5pp  ██████░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░\nDomain Prompt    +0.1pp  ░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░\nSelf-Critique    -4.1pp  ▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓░░░░░░░░░░░░░░░░░░░░  (HURTS)\n```\n\n**Cross-model validation:** The hierarchy holds across all 3 respondent models. claude-opus-4-7 reaches 83.3% under C+A.",
-            "path": "main",
-            "type": "normal"
-        },
-        {
-            "id": "slide-9",
-            "content": "# Actionable Findings\n\n**For platform teams configuring AI tools:**\n\n1. **Deploy agentic tools, not bigger prompts.** Tool access is the only lever that meaningfully separates configurations.\n2. **Pair citation with agentic tools.** Citation alone adds nothing; with tools it enables real doc retrieval.\n3. **Remove domain prompts from agentic configs.** Static primers interfere with tool-based retrieval.\n4. **Do not add self-critique.** It doubles generation time while reducing quality in every agentic configuration.\n\n**For product managers (documentation gaps):**\n\n- **Implement** is weakest in 50% of categories (16/32) — missing how-to guides and code examples\n- **Debug** is weakest in 41% of categories (13/32) — missing troubleshooting runbooks\n- Worst gaps: Cortex Agents (30.8% Implement), Iceberg Tables (31.3% Debug), Semantic Views (37.6% Implement)",
-            "path": "main",
-            "type": "normal"
-        },
-        {
-            "id": "slide-10",
-            "content": "# What Comes Next\n\n**Immediate priorities:**\n\n- Automate for regression detection (scheduled benchmark runs via SPCS)\n- Expand question bank to 8-12 questions per category for tighter confidence intervals\n- Extend factorial replication to all 5 judge models as respondents\n- Build PM self-serve tooling (per-category gap analysis in Streamlit)\n\n**The bigger picture:**\n\nAEO is not a one-time study. It is a **continuous measurement system** that tells us whether AI developer tools are getting better or worse at answering real questions, and exactly where documentation investment will have the highest impact.\n\n*Give the agent tools, tell it to cite sources, and stay out of its way.*",
-            "path": "main",
-            "type": "normal"
-        }
-    ]
-};
+%%SLIDES_DATA%%
 // ============================================================
 // BITMAP TEXT ENGINE
 // ============================================================
