@@ -891,7 +891,7 @@ function renderMarkdown(src){
     return '<pre>'+label+'<code class="lang-'+lang+'">'+escaped+'</code></pre>';
   });
   // Parse pipe tables before other inline formatting
-  html = html.replace(/((?:^\|.+\|[ \t]*\n)+)/gm, function(tableBlock){
+  html = html.replace(/((?:^\|.+\|[ \t]*$\n?)+)/gm, function(tableBlock){
     var rows = tableBlock.trim().split('\n');
     if(rows.length < 2) return tableBlock;
     // Check if second row is separator (|---|---|)
